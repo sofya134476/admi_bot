@@ -17,7 +17,7 @@ def test_openrouter():
                 "Content-Type": "application/json"
             },
             json={
-                "model": "openrouter/aurora-alpha",
+                "model": "deepseek/deepseek-r1-0528:free",
                 "messages": [
                     {"role": "user", "content": "Привет! Напиши 'Тест успешен'"}
                 ]
