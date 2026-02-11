@@ -4,7 +4,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 # ========== ТВОИ ДАННЫЕ ==========
 TG_TOKEN = "8586330885:AAEMIVWmzPU4l4XQ-gA8MdFe33TCPUmuLwQ"
-OPENROUTER_KEY = "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"
+OPENROUTER_KEY = "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"
 # =================================
 
 # ========== ПРОВЕРКА ТЕМЫ ==========
@@ -88,7 +88,7 @@ def ask_ai(question: str, question_type: str, university=None) -> str:
                 "Content-Type": "application/json"
             },
             json={
-                "model": "deepseek/deepseek-chat",
+                "model": "openrouter/aurora-alpha",
                 "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": question}
