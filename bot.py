@@ -1,13 +1,17 @@
+import os
 import requests
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
-# ========== ТВОИ ДАННЫЕ ==========
-TG_TOKEN = "8586330885:AAEMIVWmzPU4l4XQ-gA8MdFe33TCPUmuLwQ"
-OPENROUTER_KEY = "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"
-# =================================
 
-# ========== ПРОВЕРКА ТЕМЫ ==========
+TG_TOKEN = os.environ.get('TG_TOKEN')
+OPENROUTER_KEY = os.environ.get('OPENROUTER_KEY')
+
+if not TG_TOKEN:
+    print("❌ TG_TOKEN не найден!")
+if not OPENROUTER_KEY:
+    print("❌ OPENROUTER_KEY не найден!")
+
 def is_admission_question(text: str) -> bool:
     """Проверяет, относится ли вопрос к поступлению"""
     text_lower = text.lower()
@@ -27,9 +31,8 @@ def is_admission_question(text: str) -> bool:
         if word in text_lower:
             return True
     return False
-# ====================================
 
-# ========== РАСПОЗНАВАНИЕ ТИПА ВОПРОСА ==========
+
 def detect_question_type(text: str):
     """Определяет, общий вопрос или про конкретный вуз"""
     text_lower = text.lower()
@@ -42,7 +45,7 @@ def detect_question_type(text: str):
             return 'university', uni
     
     return 'general', None
-# ================================================
+
 
 def ask_ai(question: str, question_type: str, university=None) -> str:
     """Запрос к OpenRouter с правильным контекстом"""
@@ -88,7 +91,7 @@ def ask_ai(question: str, question_type: str, university=None) -> str:
                 "Content-Type": "application/json"
             },
             json={
-                "model": "deepseek/deepseek-r1-0528:free",
+                "model": "qwen/qwen3-8b:free",
                 "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": question}
