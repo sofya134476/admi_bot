@@ -91,7 +91,7 @@ def ask_ai(question: str, question_type: str, university=None) -> str:
                 "Content-Type": "application/json"
             },
             json={
-                "model": "qwen/qwen3-8b:free",
+                "model": "deepseek/deepseek-r1-0528:free",
                 "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": question}
